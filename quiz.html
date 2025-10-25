@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Türk İktisat Tarihi Sınavı</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Giriş Ekranı -->
+        <div class="welcome-screen" id="welcomeScreen">
+            <div class="welcome-content">
+                <div class="welcome-icon">📚</div>
+                <h1 class="welcome-title">Türk İktisat Tarihi</h1>
+                <p class="welcome-subtitle">II. Meşrutiyet'ten Günümüze</p>
+                
+                <div class="welcome-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✨</span>
+                        <span>250+ Kapsamlı Soru</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">⚡</span>
+                        <span>Anlık Geri Bildirim</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🔄</span>
+                        <span>Akıllı Tekrar Sistemi</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🎯</span>
+                        <span>Detaylı Analiz</span>
+                    </div>
+                </div>
+
+                <div class="difficulty-selection">
+                    <h3>Soru Sayısı Seçin</h3>
+                    <div class="difficulty-options">
+                        <button class="difficulty-btn" onclick="startQuiz(25)">
+                            <span class="difficulty-label">Hızlı</span>
+                            <span class="difficulty-count">25 Soru</span>
+                        </button>
+                        <button class="difficulty-btn difficulty-recommended" onclick="startQuiz(50)">
+                            <span class="difficulty-label">Orta</span>
+                            <span class="difficulty-count">50 Soru</span>
+                            <span class="recommended-badge">Önerilen</span>
+                        </button>
+                        <button class="difficulty-btn" onclick="startQuiz(100)">
+                            <span class="difficulty-label">Uzun</span>
+                            <span class="difficulty-count">100 Soru</span>
+                        </button>
+                    </div>
+                </div>
+
+                <button class="btn btn-start" onclick="startQuiz(50)">
+                    Sınava Başla
+                </button>
+
+                <p class="welcome-tip">💡 İpucu: Yanlış cevapladığınız sorular otomatik olarak tekrar edilecek!</p>
+            </div>
+        </div>
+
+        <!-- Ana Sınav Ekranı -->
+        <div class="quiz-container" id="quizContainer" style="display: none;">
+            <header class="header">
+                <h1>Türk İktisat Tarihi</h1>
+                <p class="subtitle">II. Meşrutiyet'ten Günümüze</p>
+            </header>
+
+            <div class="progress-section">
+                <div class="progress-info">
+                    <span id="questionCounter">Soru 1 / 50</span>
+                    <div class="stats-mini">
+                        <span class="stat-mini correct-mini">✓ <span id="correctMini">0</span></span>
+                        <span class="stat-mini incorrect-mini">✗ <span id="incorrectMini">0</span></span>
+                    </div>
+                    <span id="timeDisplay">00:00</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+
+            <main class="main-content" id="quizSection">
+                <div class="question-card">
+                    <div class="question-header">
+                        <span class="question-badge" id="questionBadge">Soru 1</span>
+                        <span class="retry-badge" id="retryBadge" style="display: none;">🔄 Tekrar</span>
+                    </div>
+                    <h2 class="question-text" id="questionText"></h2>
+                    <div class="options-list" id="optionsList"></div>
+                    
+                    <!-- Anlık Geri Bildirim -->
+                    <div class="feedback" id="feedback" style="display: none;">
+                        <div class="feedback-icon" id="feedbackIcon"></div>
+                        <div class="feedback-text" id="feedbackText"></div>
+                    </div>
+                </div>
+
+                <div class="navigation">
+                    <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()">
+                        <span>←</span> Önceki
+                    </button>
+                    <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>
+                        Sonraki <span>→</span>
+                    </button>
+                </div>
+            </main>
+
+            <div class="result-section" id="resultSection" style="display: none;">
+                <div class="result-card">
+                    <div class="result-icon" id="resultIcon">✓</div>
+                    <h2 class="result-title">Sınav Tamamlandı</h2>
+                    
+                    <div class="score-display">
+                        <div class="score-circle" id="scoreCircle">
+                            <span class="score-number" id="scoreNumber">0</span>
+                            <span class="score-total">/ 100</span>
+                        </div>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value correct" id="correctCount">0</div>
+                            <div class="stat-label">Doğru</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value incorrect" id="incorrectCount">0</div>
+                            <div class="stat-label">Yanlış</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value empty" id="emptyCount">0</div>
+                            <div class="stat-label">Boş</div>
+                        </div>
+                    </div>
+
+                    <div class="result-message" id="resultMessage"></div>
+
+                    <div class="result-actions">
+                        <button class="btn btn-restart" onclick="restartQuiz()">
+                            🔄 Yeniden Başla
+                        </button>
+                        <button class="btn btn-home" onclick="goHome()">
+                            🏠 Ana Sayfa
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

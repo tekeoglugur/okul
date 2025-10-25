@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Türk İktisat Tarihi - İnteraktif Sınav Platformu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #007AFF;
+            --secondary: #5856D6;
+            --success: #34C759;
+            --bg: #F2F2F7;
+            --surface: #FFFFFF;
+            --text: #000000;
+            --text-secondary: #8E8E93;
+            --border: #E5E5EA;
+            --shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 4px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            min-height: 100vh;
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 80px 20px 60px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .logo {
+            font-size: 80px;
+            margin-bottom: 24px;
+        }
+
+        .header h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -1.5px;
+            color: var(--text);
+        }
+
+        .header p {
+            font-size: 21px;
+            color: var(--text-secondary);
+            max-width: 640px;
+            margin: 0 auto 48px;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 16px 48px;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+            letter-spacing: -0.3px;
+        }
+
+        .cta-button:hover {
+            background: #0051D5;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 122, 255, 0.4);
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 60px 0;
+            animation: fadeInUp 1s ease;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 40px 32px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.2s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text);
+            letter-spacing: -0.3px;
+        }
+
+        .feature-card p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Stats */
+        .stats {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 48px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            margin: 40px 0;
+            animation: fadeIn 1.2s ease;
+        }
+
+        .stat-item {
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+
+        .stat-label {
+            font-size: 15px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Topics */
+        .topics {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 48px;
+            margin: 40px 0;
+            box-shadow: var(--shadow);
+            animation: fadeIn 1.4s ease;
+        }
+
+        .topics h2 {
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--text);
+            letter-spacing: -0.5px;
+        }
+
+        .topic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+        }
+
+        .topic-item {
+            background: var(--bg);
+            padding: 16px 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .topic-item:hover {
+            background: #E8E8ED;
+            border-color: var(--border);
+            transform: translateX(4px);
+        }
+
+        .topic-icon {
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .topic-name {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        /* How it works */
+        .how-it-works {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 48px;
+            margin: 40px 0;
+            box-shadow: var(--shadow);
+            animation: fadeIn 1.6s ease;
+        }
+
+        .how-it-works h2 {
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 48px;
+            color: var(--text);
+            letter-spacing: -0.5px;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .step {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 56px;
+            height: 56px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+
+        .step h3 {
+            font-size: 19px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text);
+            letter-spacing: -0.3px;
+        }
+
+        .step p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 60px 20px 40px;
+            animation: fadeIn 2s ease;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+        }
+
+        .footer p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 24px;
+        }
+
+        .footer-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: opacity 0.2s ease;
+        }
+
+        .footer-link:hover {
+            opacity: 0.7;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 60px 20px 40px;
+            }
+
+            .header h1 {
+                font-size: 40px;
+            }
+
+            .header p {
+                font-size: 19px;
+            }
+
+            .logo {
+                font-size: 64px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+                padding: 32px 24px;
+                gap: 24px;
+            }
+
+            .topics, .how-it-works {
+                padding: 32px 24px;
+            }
+
+            .topic-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .header p {
+                font-size: 17px;
+            }
+
+            .cta-button {
+                padding: 14px 36px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">📚</div>
+            <h1>Türk İktisat Tarihi</h1>
+            <p>İnteraktif sınav platformu ile II. Meşrutiyet'ten günümüze Türk İktisat Tarihi'ni öğrenin ve kendinizi test edin</p>
+            <a href="quiz.html" class="cta-button">Sınava Başla</a>
+        </header>
+
+        <!-- Features -->
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>250+ Soru</h3>
+                <p>Kapsamlı soru havuzumuzla konuya tam hakim olun</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Anlık Geri Bildirim</h3>
+                <p>Her sorunun doğru cevabını anında öğrenin</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔄</div>
+                <h3>Akıllı Tekrar</h3>
+                <p>Yanlış sorular otomatik olarak tekrar edilir</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💾</div>
+                <h3>İlerleme Kaydı</h3>
+                <p>Sınavınızı istediğiniz yerden devam ettirin</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Detaylı Analiz</h3>
+                <p>Performansınızı istatistiklerle takip edin</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Her Cihazda</h3>
+                <p>Bilgisayar, tablet ve mobilde çalışır</p>
+            </div>
+        </section>
+
+        <!-- Stats -->
+        <section class="stats">
+            <div class="stat-item">
+                <div class="stat-number">250+</div>
+                <div class="stat-label">Soru</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">15+</div>
+                <div class="stat-label">Konu Başlığı</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Ücretsiz</div>
+            </div>
+        </section>
+
+        <!-- Topics -->
+        <section class="topics">
+            <h2>Kapsanan Konular</h2>
+            <div class="topic-grid">
+                <div class="topic-item">
+                    <span class="topic-icon">🏛️</span>
+                    <span class="topic-name">Osmanlı Ekonomik Yapısı</span>
+                </div>
+                <div class="topic-item">
+                    <span class="topic-icon">📜</span>
+                    <span class="topic-name">İkta ve Dirlik Sistemi</span>
+                </div>
+                <div class="topic-item">
+                    <span class="topic-icon">🤝</span>
+                    <span class="topic-name">1838 İngiliz Ticaret Antlaşması</span>
+                </div>
+                <div class="topic-item">
+                    <span class="topic-icon">⚔️</span>
+                    <span class="topic-name">Kırım Savaşı ve Dış Borçlar</span>
+                </div>
+                <div class="topic-item">
+                    <span class="topic-icon">🏦</span>
+                    <span class="topic-name">Düyun-u Umumiye</span>
+                </div>
+                <div class="topic-item">
+                    <span class="topic-icon">✨</span>
+                    <span class="topic-name">II. Meşrutiyet Dönemi</span>
+                </div>
+                <div class="topic-item">
+                    <span class="topic-icon">💼</span>
+                    <span class="topic-name">Milli İktisat Anlayışı</span>
+                </div>
+                <div class="topic-item">
+                    <span class="topic-icon">🌍</span>
+                    <span class="topic-name">I. Dünya Savaşı Ekonomisi</span>
+                </div>
+                <div class="topic-item">
+                    <span class="topic-icon">🎖️</span>
+                    <span class="topic-name">Milli Mücadele Dönemi</span>
+                </div>
+                <div class="topic-item">
+                    <span class="topic-icon">🏛️</span>
+                    <span class="topic-name">İzmir İktisat Kongresi</span>
+                </div>
+                <div class="topic-item">
+                    <span class="topic-icon">🌾</span>
+                    <span class="topic-name">Cumhuriyet Dönemi Tarım</span>
+                </div>
+                <div class="topic-item">
+                    <span class="topic-icon">🏭</span>
+                    <span class="topic-name">Sanayileşme Çabaları</span>
+                </div>
+                <div class="topic-item">
+                    <span class="topic-icon">🏦</span>
+                    <span class="topic-name">Milli Bankacılık</span>
+                </div>
+                <div class="topic-item">
+                    <span class="topic-icon">📉</span>
+                    <span class="topic-name">1929 Dünya Bunalımı</span>
+                </div>
+                <div class="topic-item">
+                    <span class="topic-icon">🏛️</span>
+                    <span class="topic-name">Devletçilik Dönemi</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- How it works -->
+        <section class="how-it-works">
+            <h2>Nasıl Çalışır?</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Soru Sayısı Seçin</h3>
+                    <p>25, 50 veya 100 soruluk sınav seçeneklerinden birini seçin</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Soruları Çözün</h3>
+                    <p>Her soruda anlık geri bildirim alın, doğru cevabı görün</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Sonuçları İnceleyin</h3>
+                    <p>Performansınızı detaylı istatistiklerle analiz edin</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Türk İktisat Tarihi - İnteraktif Sınav Platformu</p>
+            <p>© 2025 Tüm hakları saklıdır</p>
+            <div class="footer-links">
+                <a href="quiz.html" class="footer-link">Sınava Başla</a>
+                <a href="#" class="footer-link">Hakkında</a>
+                <a href="#" class="footer-link">İletişim</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
