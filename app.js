@@ -502,9 +502,8 @@ function finishQuiz() {
 function goHome() {
     clearInterval(timerInterval);
     clearAutoNext();
-    document.getElementById('resultSection').style.display = 'none';
-    document.getElementById('quizContainer').style.display = 'none';
-    document.getElementById('welcomeScreen').style.display = 'flex';
+    localStorage.removeItem('turkIktisatQuizState');
+    window.location.href = './index.html';
 }
 
 // Sınavı yeniden başlat
