@@ -1,0 +1,18 @@
+{
+  "name": "turk-iktisat-tarihi-sinav",
+  "version": "1.0.0",
+  "description": "Türk İktisat Tarihi İnteraktif Sınav Platformu",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve .",
+    "build": "echo 'Static site - no build needed'"
+  },
+  "keywords": [
+    "türk-iktisat",
+    "sınav",
+    "eğitim",
+    "quiz"
+  ],
+  "author": "",
+  "license": "MIT"
+}
